@@ -68,16 +68,23 @@ public class SchoolTestClient {
     public static void saveToDb(List<HashSet> objectSet) {
 
         EntityManager entityManager = EntityManagerUtils.getEntityManager("mysqlPU");
-        entityManager.getTransaction().begin();
 
-        for (HashSet hashSetObject : objectSet) {
-            for (Object o : hashSetObject) {
-                entityManager.persist(o);
+
+        try {
+            entityManager.getTransaction().begin();
+
+            for (HashSet hashSetObject : objectSet) {
+                for (Object o : hashSetObject) {
+                    entityManager.persist(o);
+                }
             }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            EntityManagerUtils.close(entityManager);
         }
-
-        entityManager.getTransaction().commit();
-        EntityManagerUtils.close(entityManager);
 
     }
 }
