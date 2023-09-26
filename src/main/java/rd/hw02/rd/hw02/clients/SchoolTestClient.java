@@ -20,7 +20,7 @@ public class SchoolTestClient {
         Student student3 = new Student("Zeynep", LocalDate.of(2000, Month.SEPTEMBER, 12), "Istanbul, Mecidiyekoy", 'F');
 
         //Add student objects into a HashSet
-        HashSet<Student> studentsToSave = new HashSet<>();
+        Set<Student> studentsToSave = new HashSet<>();
         studentsToSave.add(student1);
         studentsToSave.add(student2);
         studentsToSave.add(student3);
@@ -30,7 +30,7 @@ public class SchoolTestClient {
         Instructor instructor2 = new VisitingResearcher("Hasan", "Istanbul, Ortakoy", "987654321");
 
         //Add instructor objects into a HashSet
-        HashSet<Instructor> instructorsToSave = new HashSet<>();
+        Set<Instructor> instructorsToSave = new HashSet<>();
         instructorsToSave.add(instructor1);
         instructorsToSave.add(instructor2);
 
@@ -39,7 +39,7 @@ public class SchoolTestClient {
         Course course2 = new Course("Physics-1", "PHYS101", 3);
 
         //Add course objects into a HashSet
-        HashSet<Course> coursesToSave = new HashSet<>();
+        Set<Course> coursesToSave = new HashSet<>();
         coursesToSave.add(course1);
         coursesToSave.add(course2);
 
@@ -54,7 +54,7 @@ public class SchoolTestClient {
         student3.addCourse(course2);
 
         //Add all HashSet of objects to a List
-        List<HashSet> objectsToSave = new ArrayList<>();
+        List<Set> objectsToSave = new ArrayList<>();
         objectsToSave.add(instructorsToSave);
         objectsToSave.add(coursesToSave);
         objectsToSave.add(studentsToSave);
@@ -65,7 +65,7 @@ public class SchoolTestClient {
     }
 
     //Iterate through all HashSets and save the members to DataBase
-    public static void saveToDb(List<HashSet> objectSet) {
+    public static void saveToDb(List<Set> objectSet) {
 
         EntityManager entityManager = EntityManagerUtils.getEntityManager("mysqlPU");
 
@@ -73,7 +73,7 @@ public class SchoolTestClient {
         try {
             entityManager.getTransaction().begin();
 
-            for (HashSet hashSetObject : objectSet) {
+            for (Set hashSetObject : objectSet) {
                 for (Object o : hashSetObject) {
                     entityManager.persist(o);
                 }
